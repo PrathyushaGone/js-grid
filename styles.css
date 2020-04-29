@@ -1,0 +1,39 @@
+.js-grid{
+    padding:20px;
+}
+.js-grid table{
+    width:100%;
+    border-top:1px solid #000;
+    border-collapse: collapse;
+}
+.js-grid input{
+    width:100%;
+    border:none;
+    padding:10px;
+}
+.js-grid table td, .js-grid table th{
+    padding:10px;
+    text-align: left;
+}
+.js-grid table th{
+    background:#efefef;
+}
+.js-grid table tbody tr:nth-child(even){
+    background: #efefef;
+}
+.paging-list{
+    display: flex;
+    margin:30px;
+}
+.paging-list li{
+  display: none;
+  padding: 10px;
+}
+.paging-list li:first-child, .paging-list li:last-child,  .paging-list li.active{
+    display: flex;
+}
+.pagination-wrapper{
+   display: flex;
+   align-items:center;
+   justify-content: center;
+}
