@@ -7,7 +7,7 @@
               <input type="text" placeholder="Search by name" id="searchBox" onkeyup="searchGrid()"/>
               <table id="grid">
                   <thead>
-                      <th>ID</th>
+                      <th onclick="customSort(id)">ID</th>
                       <th>First Name</th>
                       <th>Last Name</th>
                       <th>Company</th>
@@ -19,11 +19,15 @@
               </table>
           </div>
           <div class="pagination-wrapper">
-          <a onclick="nextPage()"> &larr; </a>
+          <a onclick="prevPage()"> &larr; </a>
           <ul id="pagination" class="paging-list">
-
+<li id="current_page">
+    
+</li>
+<li>/</li>
+<li id="total_pages"></li>
           </ul>
-          <a>&rarr;</a>
+          <a  onclick="nextPage()">&rarr;</a>
         </div>
           <script src="./grid.js"></script>
     </body>

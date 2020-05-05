@@ -10,11 +10,17 @@ let gridData = JSON.parse( httpGet('https://emp-api-rakesh.herokuapp.com/employe
 let gridContent = document.getElementById('gridBody');
 let pageNumDisplay = document.getElementById('pagination');
 let myTable = document.getElementById('grid');
+let currentPage = 1;
+let fileteredData = [];
+
 const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;
 
 const comparer = (idx, asc) => (a, b) => ((v1, v2) => 
+
     v1 !== '' && v2 !== '' && !isNaN(v1) && !isNaN(v2) ? v1 - v2 : v1.toString().localeCompare(v2)
     )(getCellValue(asc ? a : b, idx), getCellValue(asc ? b : a, idx));
+
+    
 myTable.querySelectorAll('th').forEach(th => th.addEventListener('click', (() => {
     debugger
     const tbody = gridContent;
@@ -26,6 +32,7 @@ myTable.querySelectorAll('th').forEach(th => th.addEventListener('click', (() =>
 
 
 appendDatatoGrid(gridData);
+PageChange(gridData, 1);
 
 function appendTableCell(tr, tdValue){
     let tableCell = document.createElement('td');
@@ -44,26 +51,48 @@ for (let index = 0; index < data.length; index++) {
     appendTableCell(tableRow, element.email);
     gridContent.appendChild(tableRow);
 }
+}
+ function nextPage(){
+    if(currentPage == totalPages){
+        return;
+    }
+currentPage++;
+debugger;
+if (fileteredData && fileteredData.length > 0){
+    PageChange(fileteredData, currentPage);
+}
 
- totalPages = parseInt( data.length/12);
- for (let page = 1; page < totalPages; page++) {
-     let pagingNum = document.createElement('li');
-    pagingNum.setAttribute('data-pagenumber',page);
-    pagingNum.innerText = page;
-     pagingNum.addEventListener('click', function(event){
-      let currentPage = parseInt(event.target.getAttribute('data-pagenumber'));
-     PageChange(data, currentPage);     
-
-     });
-     pageNumDisplay.appendChild(pagingNum);
- }
-
-PageChange(data, 1);
+else{
+    PageChange(gridData, currentPage);
+}
+    }
+    function prevPage(){
+        if(currentPage == 1){
+            return;
+        }
+        currentPage--;
+        debugger;
+        if (fileteredData && fileteredData.length > 0){
+            PageChange(fileteredData, currentPage);
+        }
+        
+        else{
+            PageChange(gridData, currentPage);
+        }
+            }
+function setCurrentPage(){
+    let currentPageNum =  document.getElementById('current_page');
+    currentPageNum.innerText = currentPage;
+    console.log(currentPageNum.innerText);
+    let lastPageNum =  document.getElementById('total_pages');
+    lastPageNum.innerText = totalPages;
 }
 
 function PageChange(data, pagenumber){
+    totalPages = parseInt( data.length/12);
     let pagedData = data.slice((pagenumber - 1) * 12, pagenumber * 12);
     appendDatatoGrid(pagedData);
+    setCurrentPage();
 }
 
 function searchGrid(){
@@ -83,20 +112,10 @@ appendDatatoGrid(fileteredData);
    }
 }
 
-// function compare( a, b ) {
-//     if ( a.last_nom < b.last_nom ){
-//       return -1;
-//     }
-//     if ( a.last_nom > b.last_nom ){
-//       return 1;
-//     }
-//     return 0;
-//   }
-  
-//   objs.sort( compare );
 
 
-document
+
+
   
 
 

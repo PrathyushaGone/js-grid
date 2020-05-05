@@ -24,9 +24,10 @@
 .paging-list{
     display: flex;
     margin:30px;
+    list-style: none;
 }
 .paging-list li{
-  display: none;
+  /* display: none; */
   padding: 10px;
 }
 .paging-list li:first-child, .paging-list li:last-child,  .paging-list li.active{
